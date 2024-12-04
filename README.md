@@ -292,7 +292,7 @@ Contents of section .debug_gdb_scripts:
  [..]
 ```
 
-Ooops, how did contents of `/etc/passwd` get into the binary?
+Ooops, how did contents of `/etc/passwd` get into the binary? By definition this is not a security vulnerabiltiy, but maybe it'll be fixed when filed as a [bug report](https://github.com/rust-lang/rust/issues/133837).
 
 # Expection: `rust-gdb` users can't be backdoored via `#![debugger_visualizer]`
 
@@ -354,15 +354,15 @@ In my opinion, these are not unrealistic expectations for a programming language
 
 Action items from the back of my head:
 
-[ ] Deny arbitrary file access by `include!()`, `include_str!()` and `include_bytes!()`.
-[ ] Deny arbitrary file access by `#[doc=include_str!()]`
-[ ] Prevent `rustdoc` from running macros
-[ ] Prevent `rustdoc` from creating persistent XSS in the documentation HTML files
-[ ] Disable `[debugger_visualizer]` for all dependencies, let power users enable it on a case-by-case basis.
-[ ] Prevent third-party modules from reading files in home folder
-[ ] Deny access to infinite-size files such as `/dev/zero` and `/dev/urandom` to stop out-of-memory errors
-[ ] Prevent `#[diagnostic::on_unimplemented]` (or `#[..]` in general) from having infinite amount of items
-[ ] Audit `crates.io` for any behavior described in this document
+- [ ] Deny arbitrary file access by `include!()`, `include_str!()` and `include_bytes!()`.
+- [ ] Deny arbitrary file access by `#[doc=include_str!()]`
+- [ ] Prevent `rustdoc` from running macros
+- [ ] Prevent `rustdoc` from creating persistent XSS in the documentation HTML files
+- [ ] Disable `[debugger_visualizer]` for all dependencies, let power users enable it on a case-by-case basis.
+- [ ] Prevent third-party modules from reading files in home folder
+- [ ] Deny access to infinite-size files such as `/dev/zero` and `/dev/urandom` to stop out-of-memory errors
+- [ ] Prevent `#[diagnostic::on_unimplemented]` (or `#[..]` in general) from having infinite amount of items
+- [ ] Audit `crates.io` for any behavior described in this document
 
 # More quirks...
 
