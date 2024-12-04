@@ -231,7 +231,7 @@ note: backtrace dumped due to SIGSEGV! resuming signal
 Segmentation fault (core dumped)
 ```
 
-Not sure if these crashes in `rustc` can be further exploited, but given the aura of robustness and safety surrounding rust it's disappointing to find such unhandled exceptions.
+The rust team confirmed that these SIGSEGV crashes in `rustc` [cannot be exploited](https://github.com/rust-lang/rust/issues/133772#issuecomment-2515983738). However, given the aura of robustness and safety surrounding rust it's unexpected to find such unhandled exceptions.
 
 
 # Expectation: No security risk when formatting with `rustfmt`
@@ -240,14 +240,6 @@ Not sure if these crashes in `rustc` can be further exploited, but given the aur
 
 The files `rustfmt_crash_1.rs` and `rustfmt_crash_2.rs` will crash `rustfmt` with SIGSEGV.
 
-```rust
-compile_error!(concat!("AAAAAA",concat!("AA"/* ... repeat 10.000 times ... */)));
-```
-
-```rust
-compile_error!(env!("A",env!("A",env!(/* ... repeat 10.000 times ... */))));
-```
-
 ```
 $ rustfmt rustfmt_crash_2.rs 
 thread 'main' has overflowed its stack
@@ -255,7 +247,7 @@ fatal runtime error: stack overflow
 Aborted (core dumped)
 ```
 
-Both `rustfmt` and `rustc` use the same functions to process source code, so they'll be equally affected by any bugs or security vulnerabilities in the underlying rust libraries. It's not clear if this could be further exploited for arbitrary code execution by an attacker. But it highlights a fact which is well-known in the security world: Not only compiling or running untrusted code exposes a developer to security risks, but even formatting it could lead to further exploitation.
+Both `rustfmt` and `rustc` use the same functions to process source code, so they'll be equally affected by any bugs in the underlying rust libraries. The rust team confirms that these SIGSEGV crashes are not exploitable.
 
 
 # Expectation: Rust binary will not contain arbitrary files
