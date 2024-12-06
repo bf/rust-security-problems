@@ -6,6 +6,7 @@ TL/DR:
 - `#![debugger_visualizer]` allows storing of arbitrary files in debug binaries (+ special python scripts for `rust-gdb` users)
 - third-party module dependencies somewhere deep down can trigger this
 - rust security model works very well until a piece of malware slips through `crates.io` security scanning but this won't happen
+- band-aid [fix to limit cargo unrestricted file access](./bubblewrap-cargo.md)
 
 ---
 
